@@ -31,7 +31,9 @@ public class UserTest extends BaseTest {
     @After
     public void cleanUp() {
 //        Удаляем созданного Пользователя
-        userClient.deleteUser();
+        if (accessToken != null) {
+            userClient.deleteAuthUser(accessToken);
+        }
     }
 
     /**
@@ -42,11 +44,10 @@ public class UserTest extends BaseTest {
     public void createUser_Default_CanBeCreated() {
 
         ValidatableResponse responseCreate = userClient.createUser(userDefault);
-        ValidatableResponse responseLogin = userClient.loginUser(userDefault);
         responseCreate.log().all();
 
 
-        accessToken = accessTokenExtract(responseLogin);
+        accessToken = accessTokenExtract(responseCreate);
         statusCodeActual = getStatusCodeActual(responseCreate);
 
         boolean isUserCreatedActual = responseCreate.extract().path("success");
@@ -60,6 +61,8 @@ public class UserTest extends BaseTest {
     public void createUser_DoubleUser_NotBeCreated() {
 
         ValidatableResponse responseCreate = userClient.createUser(userDefault);
+        accessToken = accessTokenExtract(responseCreate);
+
         responseCreate.log().all();
 
         ValidatableResponse responseDoubleCreate = userClient.createUser(userDefault);
