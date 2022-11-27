@@ -10,12 +10,13 @@ import qa_java.client.UserClient;
 import qa_java.generators.UserGenerator;
 import qa_java.model.User;
 
-import static org.apache.http.HttpStatus.SC_BAD_REQUEST;
+import static org.apache.http.HttpStatus.SC_FORBIDDEN;
 
 @RunWith(Parameterized.class)
 public class UserParamTest extends BaseTest {
 
 
+    public static final String EMAIL_PASSWORD_AND_NAME_ARE_REQUIRED_FIELDS = "Email, password and name are required fields";
     private final User user;
     private UserClient userClient;
 
@@ -30,9 +31,9 @@ public class UserParamTest extends BaseTest {
     @Parameterized.Parameters
     public static Object[][] getTestData() {
         return new Object[][]{
-                {UserGenerator.getWithoutLoginField(), "Email, password and name are required fields", SC_BAD_REQUEST},
-                {UserGenerator.getWithoutPassField(), "Email, password and name are required fields", SC_BAD_REQUEST},
-                {UserGenerator.getWithoutNameField(), "Email, password and name are required fields", SC_BAD_REQUEST},
+                {UserGenerator.getWithoutLoginField(), EMAIL_PASSWORD_AND_NAME_ARE_REQUIRED_FIELDS, SC_FORBIDDEN},
+                {UserGenerator.getWithoutPassField(), EMAIL_PASSWORD_AND_NAME_ARE_REQUIRED_FIELDS, SC_FORBIDDEN},
+                {UserGenerator.getWithoutNameField(), EMAIL_PASSWORD_AND_NAME_ARE_REQUIRED_FIELDS, SC_FORBIDDEN},
         };
     }
 
