@@ -29,7 +29,7 @@ public class LoginTest extends BaseTest {
     @After
     public void cleanUp() {
 //        Удаляем созданного пользователя
-        userClient.deleteUser(accessToken);
+        userClient.deleteUser();
     }
 
     @Test

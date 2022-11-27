@@ -4,7 +4,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import qa_java.model.User;
+import qa_java.generators.UserGenerator;
 
 import static io.restassured.RestAssured.given;
 
@@ -36,8 +36,7 @@ public class Client {
     protected Response getToken() {
         return given()
                 .contentType(ContentType.JSON)
-                .body(new User("login090909090909Token@ya.ru",
-                        "password", "name"))
+                .body(UserGenerator.getDefault())
                 .when()
                 .post(BASE_URL + LOGIN_PATH)
                 .then().extract().response();

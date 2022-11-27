@@ -9,9 +9,7 @@ public class UserClient extends Client {
 
     public static final String CREATE_PATH = "/api/auth/register";
     public static final String LOGIN_PATH = "/api/auth/login";
-    public static final String LOGOUT_PATH = "/api/auth/logout";
     public static final String USER_PATH = "/api/auth/user";
-
 
 
     public ValidatableResponse createUser(User user) {
@@ -24,7 +22,7 @@ public class UserClient extends Client {
 
     }
 
-    public ValidatableResponse loginUser(User user){
+    public ValidatableResponse loginUser(User user) {
         return given()
                 .spec(getSpec())
                 .body(user)
@@ -33,18 +31,10 @@ public class UserClient extends Client {
                 .then();
     }
 
-    public ValidatableResponse logoutUser(User user){
-        return given()
-                .spec(getSpec())
-                .body(user)
-                .when()
-                .post(LOGOUT_PATH)
-                .then();
-    }
 
-    public ValidatableResponse deleteUser(String accessToken) {
+    public ValidatableResponse deleteUser() {
         return given()
-                .spec(getSpec())
+                .spec(getSpecAuth())
                 .when()
                 .delete(USER_PATH)
                 .then();
