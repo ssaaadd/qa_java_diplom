@@ -1,10 +1,15 @@
 package qa_java;
 
 import io.restassured.response.ValidatableResponse;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import qa_java.client.Client;
 import qa_java.client.OrderClient;
+import qa_java.client.UserClient;
+import qa_java.generators.UserGenerator;
+import qa_java.model.User;
 
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.apache.http.HttpStatus.SC_UNAUTHORIZED;
@@ -13,12 +18,29 @@ public class GetOrderTest extends BaseTest {
 
 
     private OrderClient orderClient;
+    private UserClient userClient;
+    private User userDefault;
+    private String accessToken;
+
+
     private Object message;
 
 
     @Before
     public void setUp() {
         orderClient = new OrderClient();
+        //        Создаем шаблоны пользователей
+        userClient = new UserClient();
+        userDefault = UserGenerator.getDefault();
+    }
+
+    @After
+    public void cleanUp() {
+//        Удаляем созданного пользователя
+        accessToken = Client.getAccessToken();
+        if (accessToken != null) {
+            userClient.deleteUser(accessToken);
+        }
     }
 
     @Test

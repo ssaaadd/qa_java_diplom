@@ -32,11 +32,12 @@ public class UserClient extends Client {
     }
 
 
-    public ValidatableResponse deleteUser() {
+    public ValidatableResponse deleteUser(String accessToken) {
         return given()
                 .spec(getSpecAuth())
                 .when()
                 .delete(USER_PATH)
                 .then();
     }
+
 }
