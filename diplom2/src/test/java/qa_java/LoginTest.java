@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import qa_java.client.Client;
 import qa_java.client.UserClient;
 import qa_java.generators.UserGenerator;
 import qa_java.model.User;
@@ -29,7 +30,10 @@ public class LoginTest extends BaseTest {
     @After
     public void cleanUp() {
 //        Удаляем созданного пользователя
-        userClient.deleteUser();
+        //accessToken = Client.getAccessToken();
+        if (accessToken != null) {
+            userClient.deleteUser(accessToken);
+        }
     }
 
     @Test

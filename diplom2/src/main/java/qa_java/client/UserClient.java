@@ -40,4 +40,13 @@ public class UserClient extends Client {
                 .then();
     }
 
+    public ValidatableResponse deleteAuthUser(String accessToken) {
+        return given()
+                .spec(getSpec())
+                .header("Authorization", accessToken)
+                .when()
+                .delete(USER_PATH)
+                .then();
+    }
+
 }
