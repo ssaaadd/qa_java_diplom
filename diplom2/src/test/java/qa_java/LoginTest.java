@@ -5,7 +5,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import qa_java.client.Client;
 import qa_java.client.UserClient;
 import qa_java.generators.UserGenerator;
 import qa_java.model.User;
@@ -25,20 +24,21 @@ public class LoginTest extends BaseTest {
 //        Создаем шаблоны пользователей
         userClient = new UserClient();
         userDefault = UserGenerator.getDefault();
+//         Достаем токен
+        ValidatableResponse responseCreate = userClient.createUser(userDefault);
+        accessToken = accessTokenExtract(responseCreate);
     }
 
     @After
     public void cleanUp() {
 //        Удаляем созданного пользователя
-        //accessToken = Client.getAccessToken();
         if (accessToken != null) {
-            userClient.deleteUser(accessToken);
+            userClient.deleteAuthUser(accessToken);
         }
     }
 
     @Test
     public void loginUser_Default_Logged() {
-        ValidatableResponse responseCreate = userClient.createUser(userDefault);
         ValidatableResponse responseLogin = userClient.loginUser(userDefault);
 
         accessToken = accessTokenExtract(responseLogin);
