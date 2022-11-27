@@ -22,6 +22,27 @@ public class UserClient extends Client {
 
     }
 
+    public ValidatableResponse changeUser(User user) {
+        return given()
+                .spec(getSpec())
+                .body(user)
+                .when()
+                .patch(USER_PATH)
+                .then();
+
+    }
+
+    public ValidatableResponse changeUserAuth(User user, String accessToken) {
+        return given()
+                .spec(getSpec())
+                .header("Authorization", accessToken)
+                .body(user)
+                .when()
+                .patch(USER_PATH)
+                .then();
+
+    }
+
     public ValidatableResponse loginUser(User user) {
         return given()
                 .spec(getSpec())

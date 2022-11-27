@@ -8,6 +8,18 @@ public class UserGenerator {
         return new User("login090909090909@ya.ru", "password", "name");
     }
 
+    public static User getDefaultEmailChange() {
+        return new User("1login090909090909@ya.ru", "password", "name");
+    }
+
+    public static User getDefaultPasswordChange() {
+        return new User("login090909090909@ya.ru", "1password", "name");
+    }
+
+    public static User getDefaultNameChange() {
+        return new User("login090909090909@ya.ru", "password", "1name");
+    }
+
     public static User getDefaultToken() {
         return new User("login090909090909Token@ya.ru", "password", "name");
     }
