@@ -8,6 +8,10 @@ public class MainPage extends Main {
     //локатор поля ввода email
     @FindBy(how = How.NAME, using = "name")
     private SelenideElement emailField;
+    @FindBy(how = How.XPATH, using = "(//*//input[@name='name'])[2]")
+    private SelenideElement emailRegField;
+
+
     //локатор поля ввода пароля
     @FindBy(how = How.NAME, using = "Пароль")
     private SelenideElement passwordField;
@@ -23,6 +27,11 @@ public class MainPage extends Main {
     // Локатор Войти в аккаунт
     @FindBy(how = How.XPATH, using = "//*/text()[normalize-space(.)='Личный Кабинет']/parent::*")
     private SelenideElement signInHeader;
+    // Локатор Вход после регистрации
+    @FindBy(how = How.XPATH, using = "//*/text()[normalize-space(.)='Вход']/parent::*")
+    private SelenideElement loginInHeader;
+
+
     @FindBy(how = How.LINK_TEXT, using = "Войти")
     private SelenideElement signInRegisterPage;
     // Локатор Булки
@@ -46,6 +55,9 @@ public class MainPage extends Main {
     @FindBy(how = How.XPATH, using = "//*/text()[normalize-space(.)='Профиль']/parent::*")
     private SelenideElement userHeader;
 
+    @FindBy(how = How.XPATH, using = "//*/text()[normalize-space(.)='Некорректный пароль']/parent::*")
+    private SelenideElement wrongPasswordError;
+
 
 
 
@@ -67,7 +79,11 @@ public class MainPage extends Main {
 
     //метод заполнения поля ввода email
     public void setUsername(String username) {
-        emailField.setValue(username);
+        emailRegField.setValue(username);
+    }
+
+    public void setName(String name) {
+        emailField.setValue(name);
     }
 
     //метод заполнения поля ввода пароля
@@ -81,7 +97,7 @@ public class MainPage extends Main {
     }
 
     //метод получить текст
-    public String getElementText() {
+    public String getMakeOrderText() {
         return makeOrderButton.getText();
     }
 
@@ -127,5 +143,19 @@ public class MainPage extends Main {
         return userHeader.getText();
     }
 
+    public String getWrongPasswordTest() {
+        return wrongPasswordError.getText();
+    }
 
+    public String getLoginInHeader() {
+        return loginInHeader.getText();
+    }
+
+
+    public void register(String name, String email,String password) {
+        setName(name);
+        setUsername(email);
+        setPassword(password);
+        clickSignInButton();
+    }
 }
