@@ -27,6 +27,8 @@ public class BaseTest {
 
     @After
     public void tearDown() {
+        Selenide.clearBrowserLocalStorage();
+        Selenide.clearBrowserCookies();
         Selenide.closeWebDriver();
     }
 

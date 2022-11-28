@@ -43,6 +43,11 @@ public class MainPage extends Main {
     @FindBy(how = How.XPATH, using = "(.//h2[normalize-space(text()) and normalize-space(.)='Соусы'])[1]")
     private SelenideElement sauceHeader;
 
+    @FindBy(how = How.XPATH, using = "//*/text()[normalize-space(.)='Профиль']/parent::*")
+    private SelenideElement userHeader;
+
+
+
 
     //метод клика по ссылке авторизации
     public void clickSignInBody() {
@@ -116,6 +121,11 @@ public class MainPage extends Main {
 
     public String getSauceHeader() {
         return sauceHeader.getText();
-
     }
+
+    public String getUser() {
+        return userHeader.getText();
+    }
+
+
 }
