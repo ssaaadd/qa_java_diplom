@@ -58,6 +58,15 @@ public class MainPage extends Main {
     @FindBy(how = How.XPATH, using = "//*/text()[normalize-space(.)='Некорректный пароль']/parent::*")
     private SelenideElement wrongPasswordError;
 
+    @FindBy(how = How.XPATH, using = "//*/text()[normalize-space(.)='Выход']/parent::*")
+    private SelenideElement logoutButton;
+
+    @FindBy(how = How.XPATH, using = "(.//h2[normalize-space(text()) and normalize-space(.)='Вход'])[1]")
+    private SelenideElement loginHeader;
+
+    @FindBy(how = How.XPATH, using = "//*/text()[normalize-space(.)='Личный Кабинет']/parent::*")
+    private SelenideElement dashboardButton;
+
 
 
 
@@ -78,7 +87,11 @@ public class MainPage extends Main {
     }
 
     //метод заполнения поля ввода email
-    public void setUsername(String username) {
+    public void setEmail(String username) {
+        emailField.setValue(username);
+    }
+
+    public void setRegEmail(String username) {
         emailRegField.setValue(username);
     }
 
@@ -122,7 +135,7 @@ public class MainPage extends Main {
 
     //метод авторизации в приложении: объединяет ввод email, пароля и клик по кнопке
     public void login(String username, String password) {
-        setUsername(username);
+        setEmail(username);
         setPassword(password);
         clickSignInButton();
     }
@@ -154,8 +167,26 @@ public class MainPage extends Main {
 
     public void register(String name, String email,String password) {
         setName(name);
-        setUsername(email);
+        setRegEmail(email);
         setPassword(password);
         clickSignInButton();
+    }
+
+
+    public void dashboardButtonClick(){
+        dashboardButton.click();
+    }
+
+    public void logOutButtonClick(){
+        logoutButton.click();
+    }
+
+    public void logOut(){
+        dashboardButtonClick();
+        logOutButtonClick();
+    }
+
+    public String getLoginHeader() {
+        return loginHeader.getText();
     }
 }
