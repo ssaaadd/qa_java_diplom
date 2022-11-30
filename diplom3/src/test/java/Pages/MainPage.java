@@ -67,8 +67,21 @@ public class MainPage extends Main {
     @FindBy(how = How.XPATH, using = "//*/text()[normalize-space(.)='Личный Кабинет']/parent::*")
     private SelenideElement dashboardButton;
 
+    @FindBy(how = How.XPATH, using = "//*/text()[normalize-space(.)='Конструктор']/parent::*")
+    private SelenideElement constructorButton;
 
+    @FindBy(how = How.XPATH, using = "//*[contains(@class, 'AppHeader_header__logo')]")
+    private SelenideElement headerLogo;
+    @FindBy(how = How.XPATH, using = "//*/text()[normalize-space(.)='Соберите бургер']/parent::*")
+    private SelenideElement constructYourBurgerHeader;
 
+    public String getConstructYourBurgerHeader() {
+        return constructYourBurgerHeader.getText();
+    }
+
+    public void clickHeaderLogo() {
+        headerLogo.click();
+    }
 
     //метод клика по ссылке авторизации
     public void clickSignInBody() {
@@ -80,6 +93,10 @@ public class MainPage extends Main {
         signInHeader.click();
     }
 
+    //метод клика по кнопке Конструктор
+    public void clickConstructorButton() {
+        constructorButton.click();
+    }
 
     //метод клика по ссылке авторизации
     public void clickSignInRegPage() {
@@ -165,7 +182,7 @@ public class MainPage extends Main {
     }
 
 
-    public void register(String name, String email,String password) {
+    public void register(String name, String email, String password) {
         setName(name);
         setRegEmail(email);
         setPassword(password);
@@ -173,15 +190,15 @@ public class MainPage extends Main {
     }
 
 
-    public void dashboardButtonClick(){
+    public void dashboardButtonClick() {
         dashboardButton.click();
     }
 
-    public void logOutButtonClick(){
+    public void logOutButtonClick() {
         logoutButton.click();
     }
 
-    public void logOut(){
+    public void logOut() {
         dashboardButtonClick();
         logOutButtonClick();
     }
