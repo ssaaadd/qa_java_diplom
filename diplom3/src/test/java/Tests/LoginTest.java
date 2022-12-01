@@ -1,65 +1,91 @@
 package Tests;
 
+import Pages.ForgotPasswordPage;
+import Pages.LoginPage;
 import Pages.MainPage;
+import Pages.RegistrationPage;
 import org.junit.Test;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-
+/**
+ * Вход
+ */
 public class LoginTest extends BaseTest {
 
 
+    /**
+     * вход по кнопке «Войти в аккаунт» на главной
+     */
     @Test
-    public void loginInBody() {
-        MainPage mainPagePage = open(getBaseUrl(), MainPage.class);
+    public void loginInBodyTest() {
+        MainPage mainPage = open(getBaseUrl(), MainPage.class);
+
         // переход по ссылке
-        mainPagePage.clickSignInBody();
+        LoginPage loginPage = mainPage.clickSignInBody();
         //вход в приложение
-        mainPagePage.login("login090909090909@ya.ru",
-                "password");
-        assertThat("Вход не выполнен", mainPagePage.getElementText(),
+        loginPage.login(LOGIN_MAIN,
+                PASSWORD_MAIN);
+        assertThat("Вход не выполнен", loginPage.getMakeOrderText(),
                 containsString("Оформить заказ"));
 
     }
 
+    /**
+     * вход через кнопку «Личный кабинет»
+     */
     @Test
-    public void loginInHeader() {
-        MainPage mainPagePage = open(getBaseUrl(), MainPage.class);
+    public void loginInHeaderTest() {
+        MainPage mainPage = open(getBaseUrl(), MainPage.class);
+
         // переход по ссылке
-        mainPagePage.clickSignInHeader();
+        LoginPage loginPage = mainPage.clickSignInHeaderLogin();
         //вход в приложение
-        mainPagePage.login("login090909090909@ya.ru",
-                "password");
-        assertThat("Вход не выполнен", mainPagePage.getElementText(),
+        loginPage.login(LOGIN_MAIN,
+                PASSWORD_MAIN);
+        assertThat("Вход не выполнен", loginPage.getMakeOrderText(),
                 containsString("Оформить заказ"));
 
     }
 
+
+    /**
+     * вход через кнопку в форме регистрации
+     */
     @Test
-    public void loginInRegisterPage() {
-        MainPage mainPagePage = open(getRegistrationUrl(), MainPage.class);
+    public void loginInRegisterPageTest() {
+        RegistrationPage registrationPage = open(getRegistrationUrl(),
+                RegistrationPage.class);
+
         // переход по ссылке
-        mainPagePage.clickSignInRegPage();
+        LoginPage loginPage = registrationPage.clickSignInRegPage();
         //вход в приложение
-        mainPagePage.login("login090909090909@ya.ru",
-                "password");
-        assertThat("Вход не выполнен", mainPagePage.getElementText(),
+        loginPage.login(LOGIN_MAIN,
+                PASSWORD_MAIN);
+        assertThat("Вход не выполнен", loginPage.getMakeOrderText(),
                 containsString("Оформить заказ"));
 
     }
 
+    /**
+     * вход через кнопку в форме восстановления пароля
+     */
     @Test
-    public void loginInForgotPasswordPage() {
-        MainPage mainPagePage = open(getForgotPasswordUrl(), MainPage.class);
+    public void loginInForgotPasswordPageTest() {
+        ForgotPasswordPage forgotPasswordPage = open(getForgotPasswordUrl(),
+                ForgotPasswordPage.class);
+
         // переход по ссылке
-        mainPagePage.clickSignInRegPage();
+        LoginPage loginPage = forgotPasswordPage.clickSignInForgotPasswordPage();
         //вход в приложение
-        mainPagePage.login("login090909090909@ya.ru",
-                "password");
-        assertThat("Вход не выполнен", mainPagePage.getElementText(),
+        loginPage.login(LOGIN_MAIN,
+                PASSWORD_MAIN);
+        assertThat("Вход не выполнен", loginPage.getMakeOrderText(),
                 containsString("Оформить заказ"));
 
     }
+
+
 }
