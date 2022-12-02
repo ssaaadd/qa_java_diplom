@@ -1,12 +1,13 @@
 package Tests;
 
-import Pages.MainPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import pages.MainPage;
 
 import static com.codeborne.selenide.Selenide.open;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 
 /**
@@ -21,44 +22,38 @@ public class ConstructorTest extends BaseTest {
         this.mainPage = open(getBaseUrl(), MainPage.class);
     }
 
-    /**
-     * работают переходы к разделам: «Булки»
-     */
     @Test
+    @DisplayName("Переход к разделу Булки после клика на Булки, предварительно клик на Другую вкладку")
+    @Description("Клик на вкладке Булки, проверка Заголовок видим = прокрутка успешна")
     public void clickOnBunTest() {
 
         mainPage.clickFillersButton();
         mainPage.clickBunButton();
 
-        assertThat("Вкладка не открылась", mainPage.getBunHeader(),
-                containsString("Булки"));
-
+        Assert.assertTrue("Вкладка не открылась", mainPage.getBunHeader());
     }
 
-    /**
-     * работают переходы к разделам: «Соусы»
-     */
     @Test
+    @DisplayName("Переход к разделу Соусы после клика на Соусы")
+    @Description("Клик на вкладке Соусы, проверка Заголовок видим = прокрутка успешна")
     public void clickOnSauceTest() {
 
         mainPage.clickSauceButton();
 
-        assertThat("Вкладка не открылась", mainPage.getSauceHeader(),
-                containsString("Соусы"));
+        Assert.assertTrue("Вкладка не открылась", mainPage.getSauceHeader());
 
     }
 
 
-    /**
-     * работают переходы к разделам: «Начинки»
-     */
     @Test
+    @DisplayName("Переход к разделу Начинки после клика на Начинки")
+    @Description("Клик на вкладке Начинки, проверка Заголовок видим = прокрутка успешна")
     public void clickOnFillersTest() {
 
         mainPage.clickFillersButton();
 
-        assertThat("Вкладка не открылась", mainPage.getFillersHeader(),
-                containsString("Начинки"));
+        Assert.assertTrue("Вкладка не открылась", mainPage.getFillersHeader());
+
 
     }
 }
