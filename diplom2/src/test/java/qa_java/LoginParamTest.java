@@ -1,5 +1,7 @@
 package qa_java;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,8 +28,7 @@ public class LoginParamTest extends BaseTest {
         this.statusCode = statusCode;
     }
 
-    // test data
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Пользователь {0} Код {2}")
     public static Object[][] getTestData() {
         return new Object[][]{
                 {UserGenerator.getWrongLoginField(), "email or password are incorrect", SC_UNAUTHORIZED},
@@ -41,6 +42,8 @@ public class LoginParamTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Неуспешная Авторизация")
+    @Description("Нельзя войти с неверными email, password")
     public void loginUser_WrongCred_NotLogged() {
 
         ValidatableResponse responseCreate = userClient.loginUser(user);

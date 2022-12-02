@@ -1,5 +1,8 @@
 package qa_java;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Assert;
 import org.junit.Before;
@@ -25,8 +28,7 @@ public class OrderParamTest extends BaseTest {
         this.statusCode = statusCode;
     }
 
-    // test data
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Заказ {0} Код {2}")
     public static Object[][] getTestData() {
         return new Object[][]{
                 {OrderGenerator.getNonValidIdIngredient(), "One or more ids provided are incorrect", SC_BAD_REQUEST},
@@ -41,6 +43,8 @@ public class OrderParamTest extends BaseTest {
 
 
     @Test
+    @DisplayName("Создание заказа")
+    @Description("Создаем заказы с неверным id ингредиента, с пустым id")
     public void createOrderTest() {
         ValidatableResponse responseCreate = orderClient.createOrder(order);
         responseCreate.log().all();

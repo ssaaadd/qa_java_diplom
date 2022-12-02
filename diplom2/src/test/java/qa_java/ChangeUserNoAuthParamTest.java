@@ -1,5 +1,7 @@
 package qa_java;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,8 +29,7 @@ public class ChangeUserNoAuthParamTest extends BaseTest {
         this.statusCode = statusCode;
     }
 
-    // test data
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Пользователь {0} Код {2}")
     public static Object[][] getTestData() {
         return new Object[][]{
                 {UserGenerator.getDefaultEmailChange(), YOU_SHOULD_BE_AUTHORISED, SC_UNAUTHORIZED},
@@ -43,6 +44,8 @@ public class ChangeUserNoAuthParamTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Изменение полей пользователя БЕЗ авторизации")
+    @Description("Нельзя менять email, name, password БЕЗ авторизации")
     public void changeUser_NoAuth_NotBeChanged() {
 
         ValidatableResponse responseCreate = userClient.changeUser(user);

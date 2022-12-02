@@ -1,5 +1,7 @@
 package qa_java;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,8 +29,7 @@ public class UserParamTest extends BaseTest {
         this.statusCode = statusCode;
     }
 
-    // test data
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Пользователь {0} Статус {2}")
     public static Object[][] getTestData() {
         return new Object[][]{
                 {UserGenerator.getWithoutLoginField(), EMAIL_PASSWORD_AND_NAME_ARE_REQUIRED_FIELDS, SC_FORBIDDEN},
@@ -43,6 +44,8 @@ public class UserParamTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Создание пользователей без обязательных полей")
+    @Description("Нельзя создаь пользователя без email, name, password")
     public void createUser_WithoutCred_NotBeCreated() {
 
         ValidatableResponse responseCreate = userClient.createUser(user);

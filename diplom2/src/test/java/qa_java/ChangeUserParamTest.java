@@ -1,5 +1,8 @@
 package qa_java;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Assert;
@@ -28,8 +31,7 @@ public class ChangeUserParamTest extends BaseTest {
         this.statusCode = statusCode;
     }
 
-    // test data
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Пользователь {0} Статус {1}")
     public static Object[][] getTestData() {
         return new Object[][]{
                 {UserGenerator.getDefaultEmailChange(), SC_OK},
@@ -39,18 +41,17 @@ public class ChangeUserParamTest extends BaseTest {
     }
 
     @Before
+    @Step("Создаем шаблоны пользователей")
     public void setUp() {
-        //        Создаем шаблоны пользователей
         userClient = new UserClient();
         userDefault = UserGenerator.getDefault();
-//         Достаем токен
         ValidatableResponse responseCreate = userClient.createUser(userDefault);
         accessToken = accessTokenExtract(responseCreate);
     }
 
     @After
+    @Step("Удаление пользователя")
     public void cleanUp() {
-//        Удаляем созданного пользователя
         if (accessToken != null) {
             userClient.deleteAuthUser(accessToken);
         }
@@ -58,7 +59,9 @@ public class ChangeUserParamTest extends BaseTest {
 
 
     @Test
-    public void changeUser_NoAuth_NotBeChanged() {
+    @DisplayName("Изменение полей пользователя ПОСЛЕ авторизацией")
+    @Description("Изменяем email, name, password после авторизации")
+    public void changeUser_Auth_toBeChanged() {
 
         ValidatableResponse responseCreate = userClient.changeUserAuth(user, accessToken);
         responseCreate.log().all();

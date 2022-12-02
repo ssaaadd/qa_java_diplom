@@ -1,5 +1,9 @@
 package qa_java;
 
+
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Assert;
@@ -22,15 +26,15 @@ public class UserTest extends BaseTest {
     private String message;
 
     @Before
+    @Step("Создаем шаблоны пользователей")
     public void setUp() {
-//        Создаем шаблоны Пользователей
         userClient = new UserClient();
         userDefault = UserGenerator.getDefault();
     }
 
     @After
+    @Step("Удаление пользователя")
     public void cleanUp() {
-//        Удаляем созданного Пользователя
         if (accessToken != null) {
             userClient.deleteAuthUser(accessToken);
         }
@@ -41,6 +45,8 @@ public class UserTest extends BaseTest {
      */
 
     @Test
+    @DisplayName("Создание пользователя")
+    @Description("Успешное создание пользователя, получение токена")
     public void createUser_Default_CanBeCreated() {
 
         ValidatableResponse responseCreate = userClient.createUser(userDefault);
@@ -58,6 +64,8 @@ public class UserTest extends BaseTest {
 
 
     @Test
+    @DisplayName("Создание двух одинаковых пользователей")
+    @Description("Попытка создать двух одинаковых пользователей")
     public void createUser_DoubleUser_NotBeCreated() {
 
         ValidatableResponse responseCreate = userClient.createUser(userDefault);
@@ -68,7 +76,8 @@ public class UserTest extends BaseTest {
         ValidatableResponse responseDoubleCreate = userClient.createUser(userDefault);
 
         statusCodeActual = getStatusCodeActual(responseDoubleCreate);
-        message = responseDoubleCreate.extract().path("message");
+        message = messageExtract(responseDoubleCreate);
+
         String actualMessage = "User already exists";
 
         Assert.assertEquals("Запрещено Создание одинаковых Пользователей",

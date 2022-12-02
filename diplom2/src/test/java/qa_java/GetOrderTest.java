@@ -1,5 +1,8 @@
 package qa_java;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Assert;
@@ -27,16 +30,16 @@ public class GetOrderTest extends BaseTest {
 
 
     @Before
+    @Step("Создаем шаблоны пользователей")
     public void setUp() {
         orderClient = new OrderClient();
-        //        Создаем шаблоны пользователей
         userClient = new UserClient();
         userDefault = UserGenerator.getDefault();
     }
 
     @After
+    @Step("Удаление пользователя")
     public void cleanUp() {
-//        Удаляем созданного пользователя
         accessToken = Client.getAccessToken();
         if (accessToken != null) {
             userClient.deleteUser(accessToken);
@@ -44,6 +47,8 @@ public class GetOrderTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Получение списка заказов С авторизацией")
+    @Description("Проверка orders после авторизации")
     public void getOrderList_Auth_Ok() {
         ValidatableResponse responseCreate = orderClient.getOrderListAuth();
         responseCreate.log().all();
@@ -56,6 +61,8 @@ public class GetOrderTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Получение списка заказов БЕЗ авторизации")
+    @Description("Проверка orders без авторизации")
     public void getOrderList_NoAuth_Forbidden() {
         ValidatableResponse responseCreate = orderClient.getOrderList();
         responseCreate.log().all();

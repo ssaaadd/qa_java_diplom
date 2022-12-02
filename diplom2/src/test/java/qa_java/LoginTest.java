@@ -1,5 +1,8 @@
 package qa_java;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Assert;
@@ -20,24 +23,25 @@ public class LoginTest extends BaseTest {
 
 
     @Before
+    @Step("Создаем шаблоны пользователей")
     public void setUp() {
-//        Создаем шаблоны пользователей
         userClient = new UserClient();
         userDefault = UserGenerator.getDefault();
-//         Достаем токен
         ValidatableResponse responseCreate = userClient.createUser(userDefault);
         accessToken = accessTokenExtract(responseCreate);
     }
 
     @After
+    @Step("Удаление пользователя")
     public void cleanUp() {
-//        Удаляем созданного пользователя
         if (accessToken != null) {
             userClient.deleteAuthUser(accessToken);
         }
     }
 
     @Test
+    @DisplayName("Успешный логин пользователя")
+    @Description("Проверка авторизации зарегестрированного пользователя")
     public void loginUser_Default_Logged() {
         ValidatableResponse responseLogin = userClient.loginUser(userDefault);
 

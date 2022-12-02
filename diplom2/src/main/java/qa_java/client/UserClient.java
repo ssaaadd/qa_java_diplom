@@ -1,5 +1,6 @@
 package qa_java.client;
 
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import qa_java.model.User;
 
@@ -11,7 +12,7 @@ public class UserClient extends Client {
     public static final String LOGIN_PATH = "/api/auth/login";
     public static final String USER_PATH = "/api/auth/user";
 
-
+    @Step("Создаем пользователя")
     public ValidatableResponse createUser(User user) {
         return given()
                 .spec(getSpec())
@@ -22,6 +23,7 @@ public class UserClient extends Client {
 
     }
 
+    @Step("Изменяем поля пользователя БЕЗ авторизации")
     public ValidatableResponse changeUser(User user) {
         return given()
                 .spec(getSpec())
@@ -32,6 +34,7 @@ public class UserClient extends Client {
 
     }
 
+    @Step("Изменяем поля пользователя ПОСЛЕ авторизации")
     public ValidatableResponse changeUserAuth(User user, String accessToken) {
         return given()
                 .spec(getSpec())
@@ -43,6 +46,7 @@ public class UserClient extends Client {
 
     }
 
+    @Step("Авторизации пользователя")
     public ValidatableResponse loginUser(User user) {
         return given()
                 .spec(getSpec())
@@ -52,7 +56,7 @@ public class UserClient extends Client {
                 .then();
     }
 
-
+    @Step("Удаление пользователя ПОСЛЕ создания user.getDefault()")
     public ValidatableResponse deleteUser(String accessToken) {
         return given()
                 .spec(getSpecAuth())
@@ -61,6 +65,7 @@ public class UserClient extends Client {
                 .then();
     }
 
+    @Step("Удаление пользователя ПОСЛЕ авторизации")
     public ValidatableResponse deleteAuthUser(String accessToken) {
         return given()
                 .spec(getSpec())
