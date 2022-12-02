@@ -1,9 +1,11 @@
 package Tests;
 
-import Pages.MainPage;
-import Pages.RegistrationPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.Before;
 import org.junit.Test;
+import pages.RegistrationPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -17,18 +19,17 @@ public class RegisterTest extends BaseTest {
 
     private RegistrationPage regPage;
 
-    /**
-     * переход на страницу регистрации
-     */
+
     @Before
+    @Step("Переход на страницу Регистрации")
     public void registrationPageOpen() {
         this.regPage = open(getRegistrationUrl(), RegistrationPage.class);
     }
 
-    /**
-     * Ошибку для некорректного пароля. Минимальный пароль — шесть символов.
-     */
+
     @Test
+    @DisplayName("Вход с паролем менее 6 символов")
+    @Description("Ошибка для некорректного пароля. Минимальный пароль — шесть символов")
     public void registrationNonValidPasswordTest() {
 
         regPage.register(NAME_MAIN, LOGIN_MAIN.substring(1),
@@ -39,10 +40,9 @@ public class RegisterTest extends BaseTest {
     }
 
 
-    /**
-     * Успешную регистрацию.
-     */
     @Test
+    @DisplayName("Успешная регистрация")
+    @Description("Переход на страницу Регистрации, запленение полей, регистрация")
     public void registrationSuccessfulTest() {
 
         regPage.register(NAME_MAIN, getRandomEmailNumber() + LOGIN_MAIN,

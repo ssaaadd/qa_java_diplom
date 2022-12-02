@@ -1,6 +1,7 @@
-package Pages;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -17,7 +18,7 @@ public class LoginPage {
     @FindBy(how = How.NAME, using = "Пароль")
     private SelenideElement passwordField;
     //локатор кнопки входа в приложение
-    @FindBy(how = How.XPATH, using = "//div[@id='root']/div/main/div/form/button")
+    @FindBy(how = How.XPATH, using = "//*/text()[normalize-space(.)='Войти']/parent::*")
     private SelenideElement signInButton;
     // Локатор Вход после регистрации
     @FindBy(how = How.XPATH, using = "//*/text()[normalize-space(.)='Вход']/parent::*")
@@ -33,38 +34,40 @@ public class LoginPage {
     @FindBy(how = How.XPATH, using = "(.//h2[normalize-space(text()) and normalize-space(.)='Вход'])[1]")
     private SelenideElement loginHeader;
 
-    //метод заполнения поля ввода email
+    @Step("Заполнение поля ввода email")
     public void setEmail(String username) {
         emailField.setValue(username);
     }
 
-    //метод заполнения поля ввода пароля
+    @Step("Заполнение поля ввода password")
     public void setPassword(String password) {
         passwordField.setValue(password);
     }
 
-    //метод клика по кнопке авторизации
+    @Step("Клик по кнопке авторизации")
     public void clickSignInButton() {
         signInButton.click();
     }
 
-    //метод получить текст
+    @Step("Получаем текст Оформить заказ")
     public String getMakeOrderText() {
         return makeOrderButton.getText();
     }
 
-    //метод авторизации в приложении: объединяет ввод email, пароля и клик по кнопке
+    @Step("Авторизации в приложении: объединяет ввод email, пароля и клик по кнопке")
     public void login(String username, String password) {
         setEmail(username);
         setPassword(password);
         clickSignInButton();
     }
 
+    @Step("Клик по кнопке Личный Кабинет")
     public DashboardPage dashboardButtonClick() {
         dashboardButton.click();
         return page(DashboardPage.class);
     }
 
+    @Step("Получаем текст Вход")
     public String getLoginHeader() {
         return loginHeader.getText();
     }

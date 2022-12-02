@@ -1,6 +1,7 @@
-package Pages;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -29,44 +30,49 @@ public class RegistrationPage {
     @FindBy(how = How.LINK_TEXT, using = "Войти")
     private SelenideElement signInRegisterPage;
 
+    @Step("Заполнение поля ввода email")
     public void setRegEmail(String username) {
         emailRegField.setValue(username);
     }
 
-    //метод заполнения поля ввода email
+    @Step("Заполнение поля ввода email RegistrationPage")
     public void setEmail(String username) {
         emailField.setValue(username);
     }
 
+    @Step("Заполнение поля ввода name")
     public void setName(String name) {
         emailField.setValue(name);
     }
 
-    //метод заполнения поля ввода пароля
+    @Step("Заполнение поля ввода password")
     public void setPassword(String password) {
         passwordField.setValue(password);
     }
 
-    //метод клика по кнопке авторизации
+    @Step("Клик по кнопке авторизации")
     public void clickSignInButton() {
         signInButton.click();
     }
 
+    @Step("Вытаскиваем Текст ошибки")
     public String getWrongPasswordMessage() {
         return wrongPasswordError.getText();
     }
 
+    @Step("Вытаскиваем кнопку Вход")
     public String getLoginInHeader() {
         return loginInHeader.getText();
     }
 
 
-    //метод клика по ссылке авторизации
+    @Step("Клик по ссылке авторизации")
     public LoginPage clickSignInRegPage() {
         signInRegisterPage.click();
         return page(LoginPage.class);
     }
 
+    @Step("Регистрация")
     public void register(String name, String email, String password) {
         setName(name);
         setRegEmail(email);

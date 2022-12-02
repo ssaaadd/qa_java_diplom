@@ -1,6 +1,7 @@
-package Pages;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -41,68 +42,65 @@ public class MainPage {
     private SelenideElement dashboardButton;
 
 
-
-
-
     @FindBy(how = How.XPATH, using = "//*/text()[normalize-space(.)='Соберите бургер']/parent::*")
     private SelenideElement constructYourBurgerHeader;
 
+    @Step("Получаем текст Конструктор")
     public String getConstructYourBurgerHeader() {
         return constructYourBurgerHeader.getText();
     }
 
 
-
-    //метод клика по ссылке авторизации
+    @Step("Клик по ссылке Войти в аккаунт")
     public LoginPage clickSignInBody() {
         signInBody.click();
         return page(LoginPage.class);
     }
 
-    //метод клика по кнопке Личный кабинет
+    @Step("Клик по кнопке Личный кабинет")
     public DashboardPage clickSignInHeader() {
         signInHeader.click();
         return page(DashboardPage.class);
     }
 
+    @Step("Клик по кнопке Личный кабинет")
     public LoginPage clickSignInHeaderLogin() {
         signInHeader.click();
         return page(LoginPage.class);
     }
 
-
-
-
+    @Step("Клик по кнопке Личный кабинет")
     public DashboardPage dashboardButtonClick() {
         dashboardButton.click();
         return page(DashboardPage.class);
     }
 
+    @Step("Клик по вкладке Булки")
     public void clickBunButton() {
         bunButton.click();
 
     }
-
+    @Step("Клик по вкладке Соусы")
     public void clickSauceButton() {
         sauceButton.click();
 
     }
-
+    @Step("Клик по вкладке Добавки")
     public void clickFillersButton() {
         fillersButton.click();
     }
 
-
-    public String getBunHeader() {
-        return bunHeader.getText();
+    @Step("Проверка видимости=прокрутки до Заголовка h2 Булки")
+    public Boolean getBunHeader() {
+        return bunHeader.isDisplayed();
     }
-
-    public String getFillersHeader() {
-        return fillersHeader.getText();
+    @Step("Проверка видимости=прокрутки до Заголовка h2 Начинки")
+    public Boolean getFillersHeader() {
+        return fillersHeader.isDisplayed();
     }
-
-    public String getSauceHeader() {
-        return sauceHeader.getText();
+    @Step("Проверка видимости=прокрутки до Заголовка h2 Соусы")
+    public Boolean getSauceHeader() {
+        return sauceHeader.isDisplayed();
     }
 
 

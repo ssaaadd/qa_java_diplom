@@ -1,9 +1,11 @@
 package Tests;
 
-import Pages.DashboardPage;
-import Pages.MainPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.Before;
 import org.junit.Test;
+import pages.DashboardPage;
+import pages.MainPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -21,11 +23,9 @@ public class DashboardTest extends BaseTest {
     }
 
 
-    /**
-     * переход в Личный кабинет
-     * по клику на «Личный кабинет»
-     */
     @Test
+    @DisplayName("Переход в Личный кабинет")
+    @Description("По клику на «Личный кабинет»")
     public void dashboardClickTest() {
 
         DashboardPage dashboardPage = mainPage.clickSignInHeader();
@@ -36,11 +36,9 @@ public class DashboardTest extends BaseTest {
 
     }
 
-    /**
-     * Переход из личного кабинета в конструктор
-     * по клику на «Конструктор»
-     */
     @Test
+    @DisplayName("Переход в Конструктор")
+    @Description("По клику на «Конструктор»")
     public void constructorClickTest() {
         DashboardPage dashboardPage = mainPage.clickSignInHeader();
 
@@ -51,11 +49,9 @@ public class DashboardTest extends BaseTest {
 
     }
 
-    /**
-     * Переход из личного кабинета в конструктор
-     * по клику на логотип Stellar Burgers
-     */
     @Test
+    @DisplayName("Переход из личного кабинета в конструктор")
+    @Description("По клику на логотип Stellar Burgers")
     public void logoClickTest() {
         DashboardPage dashboardPage = mainPage.clickSignInHeader();
         MainPage mainPage = dashboardPage.clickHeaderLogo();
